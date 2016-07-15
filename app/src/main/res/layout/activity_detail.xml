@@ -55,6 +55,8 @@
             <include layout="@layout/cardview_detail"/>
             <include layout="@layout/cardview_detail"/>
             <include layout="@layout/cardview_detail"/>
+            <include layout="@layout/cardview_detail"/>
+            <include layout="@layout/cardview_detail"/>
 
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>

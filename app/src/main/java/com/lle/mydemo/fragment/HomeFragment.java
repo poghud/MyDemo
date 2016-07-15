@@ -5,16 +5,13 @@ import android.content.DialogInterface;
 import android.graphics.Color;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.util.TypedValue;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewTreeObserver;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.lle.mydemo.R;
@@ -23,6 +20,7 @@ import com.lle.mydemo.base.BaseFragment;
 import com.lle.mydemo.utils.UiUtils;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @项目名称: MyDemo
@@ -42,7 +40,7 @@ public class HomeFragment extends BaseFragment {
     private ArrayList<View> mList;
     private ViewPager mViewPager;
     private LinearLayout ll_container;
-//    private List<ImageView> mPoints;
+    private List<ImageView> mPoints;
     private TextView mTv_title;
     private int	mSpace;				// 两个点之间的间距
     private ImageView mSelectedpoint;
@@ -62,7 +60,7 @@ public class HomeFragment extends BaseFragment {
         mViewPager = (ViewPager) frameLayout.findViewById(R.id.home_vp);
         ll_container = (LinearLayout) frameLayout.findViewById(R.id.home_ll_pointcontainer);
         mTv_title = (TextView) frameLayout.findViewById(R.id.home_tv_title);
-        mSelectedpoint = (ImageView) frameLayout.findViewById(R.id.home_iv_selected_point);
+//        mSelectedpoint = (ImageView) frameLayout.findViewById(R.id.home_iv_selected_point);
         mTv_title.setText("图片1");
 
         //初始化btn
@@ -95,15 +93,16 @@ public class HomeFragment extends BaseFragment {
 
         //初始化viewpager中的图片和点
         mList = new ArrayList<>();
-//        mPoints = new ArrayList();
+        mPoints = new ArrayList();
         for (int i = 0; i < imgs.length; i++) {
             //初始化viewpager中的图片
             ImageView imageView = new ImageView(mContext);
             imageView.setImageResource(imgs[i]);
             imageView.setScaleType(ImageView.ScaleType.FIT_XY);
             mList.add(imageView);
+
             //初始化图片对应的点
-            ImageView indicator = new ImageView(mContext);
+/*            ImageView indicator = new ImageView(mContext);
             indicator.setImageResource(R.drawable.point_normal_guide);
             int width = (int) (TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 10, getResources()
                             .getDisplayMetrics()) + .5f);
@@ -115,15 +114,15 @@ public class HomeFragment extends BaseFragment {
                         (int) (TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 10, getResources()
                                 .getDisplayMetrics()) + .5f);
             }
-            ll_container.addView(indicator, parmas);
+            ll_container.addView(indicator, parmas);*/
 
-/*            ImageView iv = new ImageView(mContext);
+            ImageView iv = new ImageView(mContext);
             iv.setImageResource(i == 0 ? R.drawable.point_pressed_guide : R.drawable.point_normal_guide);
             LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(-2, -2);
             params.rightMargin = 8;
             iv.setLayoutParams(params);
             ll_container.addView(iv);
-            mPoints.add(iv);*/
+            mPoints.add(iv);
         }
         //设置viewpager的adapter
         mViewPager.setAdapter(new PagerAdapter() {
@@ -131,18 +130,15 @@ public class HomeFragment extends BaseFragment {
             public int getCount() {
                 return Integer.MAX_VALUE;
             }
-
             @Override
             public Object instantiateItem(ViewGroup container, int position) {
                 container.addView(mList.get(position % mList.size()));
                 return mList.get(position % mList.size());
             }
-
             @Override
             public void destroyItem(ViewGroup container, int position, Object object) {
                 container.removeView((View) object);
             }
-
             @Override
             public boolean isViewFromObject(View view, Object object) {
                 return view == object;
@@ -178,7 +174,7 @@ public class HomeFragment extends BaseFragment {
 
     @Override
     protected void initListener() {
-        ll_container.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+/*        ll_container.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
             @Override
             public void onGlobalLayout() {
                 // ll_container布局完成的时候
@@ -189,7 +185,7 @@ public class HomeFragment extends BaseFragment {
                 // 移除监听
                 ll_container.getViewTreeObserver().removeOnGlobalLayoutListener(this);
             }
-        });
+        });*/
 
         //viewpager的滑动监听事件
         mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
@@ -199,29 +195,31 @@ public class HomeFragment extends BaseFragment {
                 // positionOffset:移动的比值
                 // positionOffsetPixels:移动的具体的像素值
                 //                Log.i(TAG, "positionOffset:" + positionOffset + " positionOffsetPixels:" + positionOffsetPixels);
-                if (position % mList.size() == mList.size() - 1) {
+
+                /*                if (position % mList.size() == mList.size() - 1) {
                     return;
                 }
                 int leftMargin = (int) (mSpace * (position % mList.size()) + mSpace * positionOffset + .5f);
                 RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) mSelectedpoint.getLayoutParams();
                 layoutParams.leftMargin = leftMargin;
-                mSelectedpoint.setLayoutParams(layoutParams);
+                mSelectedpoint.setLayoutParams(layoutParams);*/
 
 //                Log.i(TAG, "position:" + position % mList.size() + "--------------" + leftMargin);
             }
             @Override
             public void onPageSelected(int position) {
-/*                       //先移除所有的点
-                       ll_container.removeAllViews();
-                       for (int i = 0; i < mPoints.size(); i++) {
-                           mPoints.get(i).setImageResource(i == position ? R.drawable.point_pressed_guide : R.drawable.point_normal_guide);
-                           ll_container.addView(mPoints.get(i));
-                       }*/
-                if (position % mList.size() == mList.size() - 1 || position % mList.size() == 0) {
+                //先移除所有的点
+                ll_container.removeAllViews();
+                for (int i = 0; i < mPoints.size(); i++) {
+                    mPoints.get(i).setImageResource(i == position % mList.size() ? R.drawable.point_pressed_guide : R.drawable.point_normal_guide);
+                    ll_container.addView(mPoints.get(i));
+                }
+
+                /*if (position % mList.size() == mList.size() - 1 || position % mList.size() == 0) {
                     RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) mSelectedpoint.getLayoutParams();
                     layoutParams.leftMargin = mSpace * (position % mList.size());
                     mSelectedpoint.setLayoutParams(layoutParams);
-                }
+                }*/
                 mTv_title.setText("图片" + (position % mList.size() + 1));
             }
             @Override
@@ -264,8 +262,8 @@ public class HomeFragment extends BaseFragment {
         super.onStart();
         if(mTask != null)
             mTask.start();
-        if(mLeftMargin != 0)
-            ((RelativeLayout.LayoutParams) mSelectedpoint.getLayoutParams()).leftMargin = mLeftMargin;
+/*        if(mLeftMargin != 0)
+            ((RelativeLayout.LayoutParams) mSelectedpoint.getLayoutParams()).leftMargin = mLeftMargin;*/
     }
 
     @Override
@@ -273,7 +271,7 @@ public class HomeFragment extends BaseFragment {
         super.onStop();
         if(mTask != null)
             mTask.stop();
-        mLeftMargin = ((RelativeLayout.LayoutParams) mSelectedpoint.getLayoutParams()).leftMargin;
+//        mLeftMargin = ((RelativeLayout.LayoutParams) mSelectedpoint.getLayoutParams()).leftMargin;
     }
 
     @Override

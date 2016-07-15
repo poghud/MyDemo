@@ -21,14 +21,16 @@ import com.lle.mydemo.base.BaseFragment;
  */
 public class TabFragment extends BaseFragment {
     private TextView mTextView;
+    private String mText;
 
     public void setText(String text) {
-        mTextView.setText(text);
+        mText = text;
     }
 
     @Override
     protected View initView() {
         mTextView = new TextView(mContext);
+        mTextView.setText(mText);
         mTextView.setTextSize(20);
         mTextView.setGravity(Gravity.CENTER);
         mTextView.setTextColor(Color.BLUE);

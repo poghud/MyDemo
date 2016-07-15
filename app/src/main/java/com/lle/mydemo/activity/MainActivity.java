@@ -34,6 +34,12 @@ public class MainActivity extends BaseActivity {
     private NestedScrollView mNestedScrollView;
     private NavigationView mNavigationView;
     private FloatingActionButton mFab2;
+    //NestedScrollView是否需要触摸事件
+    private boolean hasTouchNested = true;
+
+    public void setHasTouchNested(boolean hasTouchNested) {
+        this.hasTouchNested = hasTouchNested;
+    }
 
     public FloatingActionButton getFab2() {
         return mFab2;
@@ -93,6 +99,8 @@ public class MainActivity extends BaseActivity {
         mNestedScrollView.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
+                if(!hasTouchNested)return false;
+
                 switch (event.getAction()) {
                     case MotionEvent.ACTION_DOWN:
                         downY = event.getY();
@@ -132,6 +140,9 @@ public class MainActivity extends BaseActivity {
                 //详情页面
                 if (item.getItemId() == R.id.nav_discussion) {
                     startActivity(new Intent(MainActivity.this, DetailActivity.class));
+                //主页面
+                }else if(item.getItemId() == R.id.nav_home){
+                    mRadioGroup.check(R.id.rb_home);
                 }
 
                 return true;
@@ -280,6 +291,7 @@ public class MainActivity extends BaseActivity {
                         break;
                 }
                 mViewPager.setCurrentItem(item, hasAnim);
+                setHasTouchNested(item==2?false:true);
             }
         });
     }

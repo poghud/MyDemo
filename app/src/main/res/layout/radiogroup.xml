@@ -58,7 +58,7 @@
         android:layout_above="@id/rg"
         android:layout_alignParentRight="true"
         android:src="@android:drawable/ic_menu_gallery"
-        app:fabSize="mini"
+        app:fabSize="normal"
         android:visibility="gone"/>
 
     <android.support.design.widget.FloatingActionButton
@@ -69,7 +69,7 @@
         android:layout_above="@id/rg"
         android:layout_alignParentRight="true"
         android:src="@android:drawable/ic_input_get"
-        app:fabSize="mini"
+        app:fabSize="normal"
         />
 
 </RelativeLayout>

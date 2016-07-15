@@ -99,13 +99,13 @@ public class ServiceFragment extends BaseFragment {
                     case MotionEvent.ACTION_MOVE:
                         float moveY = event.getY();
                         float y = moveY - downY;
-                        if (y < -3) {
+                        if (y < -5) {
                             if (mMainActivity.getFab2().getVisibility() == View.VISIBLE) {
                                 mMainActivity.fabOutsideAnimator(mMainActivity.getFab2(), 50);
                                 mMainActivity.getFab2().setVisibility(View.GONE);
                             }
                             mMainActivity.getFab().hide();
-                        } else if (y > 3) {
+                        } else if (y > 5) {
                             mMainActivity.getFab().show();
                         }
                         break;
