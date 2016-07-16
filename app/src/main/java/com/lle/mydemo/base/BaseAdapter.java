@@ -11,26 +11,12 @@ import com.lle.mydemo.utils.UiUtils;
 
 import java.util.List;
 
-/**
- * @项目名称: GooglePlay
- * @包名: com.itheima.googleplay.adapter
- * @类名:
- * @作者: lle
- *
- * @描述: TODO
- *
- * @当前版本号: $Rev:
- * @更新人: $Author:
- * @更新的时间: $Date: 2015/12/4 0004 19:26
- * @更新的描述: TODO
- *
- */
 public abstract class BaseAdapter<Data> extends android.widget.BaseAdapter implements AdapterView.OnItemClickListener {
     private static final int PAGERSIZE = 20;
     protected List<Data> mList;
     public static final int ITEM_DEFAULT = 0;
     public static final int ITEM_MORE = 1;
-    public static int ITEM_TITLE =2;
+//    public static final int ITEM_TITLE =2;
     private final ListView mLv;
 
     public BaseAdapter(List<Data> list, ListView listView){
@@ -64,6 +50,7 @@ public abstract class BaseAdapter<Data> extends android.widget.BaseAdapter imple
      * @param position 条目所在的位置
      * @return 指定位置view的类型
      */
+    @SuppressWarnings("UnusedParameters")
     public int getItemType(int position) {
         return ITEM_DEFAULT;
     }
@@ -80,7 +67,7 @@ public abstract class BaseAdapter<Data> extends android.widget.BaseAdapter imple
         Data data = mList.get(position);
         holder.setData(data);*/
 
-        BaseHolder holder = null;
+        BaseHolder holder;
         switch (getItemViewType(position)){
             case ITEM_MORE:
                 if(convertView == null){
@@ -98,7 +85,7 @@ public abstract class BaseAdapter<Data> extends android.widget.BaseAdapter imple
                 break;
         }
 
-
+        //noinspection unchecked
         holder.setData(position == mList.size() ? MoreHolder.HAS_MORE : mList.get(position));
 
         //  如果当前Holder 恰好是MoreHolder  证明MoreHOlder已经显示
@@ -107,7 +94,7 @@ public abstract class BaseAdapter<Data> extends android.widget.BaseAdapter imple
 
     private MoreHolder mHolder;
 
-    private BaseHolder getMoreHolder() {
+    private BaseHolder<Integer> getMoreHolder() {
         if(mHolder!=null){
             return mHolder;
         }else{
@@ -189,6 +176,7 @@ public abstract class BaseAdapter<Data> extends android.widget.BaseAdapter imple
         int headerViewsCount = mLv.getHeaderViewsCount();
         position -= headerViewsCount;
         if(mList != null && position == mList.size()){
+            //加载更多的条目
             return;
         }
         //条目点击事件的具体实现可重写这个方法
@@ -199,6 +187,7 @@ public abstract class BaseAdapter<Data> extends android.widget.BaseAdapter imple
      * 条目点击事件的具体实现可重写这个方法
      * @param position 被点击的位置
      */
+    @SuppressWarnings("UnusedParameters")
     public void onInnerItemClick(int position){}
 
     /**

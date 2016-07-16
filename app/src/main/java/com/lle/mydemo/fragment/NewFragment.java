@@ -14,18 +14,6 @@ import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * @项目名称: MyDemo
- * @包名: com.lle.mydemo.fragment
- * @作者: 吴永乐
- *
- * @描述: TODO
- *
- * @创建时间: 2016-04-03 15:40 
- * @更新的时间:
- * @更新的描述: TODO
- *
- */
 public class NewFragment extends BaseFragment {
 
     private volatile View self;
@@ -34,11 +22,6 @@ public class NewFragment extends BaseFragment {
 
     @Override
     protected View initView() {
-/*        TextView textView = new TextView(mContext);
-        textView.setText("新闻");
-        textView.setTextSize(20);
-        textView.setGravity(Gravity.CENTER);
-        textView.setTextColor(Color.BLUE);*/
 
         mList = new ArrayList<>();
         for (int i = 1; i < 6; i++) {
@@ -48,16 +31,17 @@ public class NewFragment extends BaseFragment {
         }
 
         if(this.self == null) {
-            this.self = View.inflate(mContext, R.layout.news_tab, null);
+            this.self = View.inflate(mContext, R.layout.fragment_news, null);
         }
         if (this.self.getParent() != null) {
             ViewGroup parent = (ViewGroup) this.self.getParent();
             parent.removeView(this.self);
         }
-//        this.self = View.inflate(mContext, R.layout.news_tab, null);
+//        this.self = View.inflate(mContext, R.layout.fragment_news, null);
         ViewPager vp = (ViewPager) this.self.findViewById(R.id.news_vp);
         TabLayout tabLayout = (TabLayout) this.self.findViewById(R.id.tabLayout);
 
+        //Fragment嵌套Fragment要用getChildFragmentManager
         vp.setAdapter(new FragmentPagerAdapter(getChildFragmentManager()) {
             @Override
             public int getCount() {
@@ -78,6 +62,12 @@ public class NewFragment extends BaseFragment {
         return this.self;
     }
 
+    /**
+     *java.lang.IllegalStateException: activity has been destroyed
+     *如果你仔细查看Fragment的实现，你会看到当fragment进行到onDestroyView状态时，它会重置它的内部状态。
+     *然而，它没有重置mChildFragmentManager，从而引发了上面的异常，这是当前版本support库的一个bug.
+     */
+    @SuppressWarnings("TryWithIdenticalCatches")
     @Override
     public void onDestroyView() {
         super.onDestroyView();

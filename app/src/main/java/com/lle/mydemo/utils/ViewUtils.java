@@ -4,6 +4,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewParent;
 
+@SuppressWarnings("unused")
 public class ViewUtils {
 	public static void removeParent(View v){
 		//  先找到爹 在通过爹去移除孩子

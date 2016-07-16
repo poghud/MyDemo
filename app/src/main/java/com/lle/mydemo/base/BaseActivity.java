@@ -44,6 +44,7 @@ public class BaseActivity extends AppCompatActivity {
         super.onPause();
     }
 
+    @SuppressWarnings("unused")
     public void killAll() {
         // 复制了一份mActivities 集合
         List<BaseActivity> copy;

@@ -2,192 +2,180 @@ package com.lle.mydemo.utils;
 
 import android.util.Log;
 
+@SuppressWarnings("unused")
 public class LogUtils {
-	/** 日志输出级别NONE */
+    /** 日志输出级别NONE */
 
-	public static final int LEVEL_NONE = 0;
+    public static final int LEVEL_NONE = 0;
 
-	/** 日志输出级别V */
+    /** 日志输出级别V */
 
-	public static final int LEVEL_VERBOSE = 1;
+    public static final int LEVEL_VERBOSE = 1;
 
-	/** 日志输出级别D */
+    /** 日志输出级别D */
 
-	public static final int LEVEL_DEBUG = 2;
+    public static final int LEVEL_DEBUG = 2;
 
-	/** 日志输出级别I */
+    /** 日志输出级别I */
 
-	public static final int LEVEL_INFO = 3;
+    public static final int LEVEL_INFO = 3;
 
-	/** 日志输出级别W */
+    /** 日志输出级别W */
 
-	public static final int LEVEL_WARN = 4;
+    public static final int LEVEL_WARN = 4;
 
-	/** 日志输出级别E */
+    /** 日志输出级别E */
 
-	public static final int LEVEL_ERROR = 5;
+    public static final int LEVEL_ERROR = 5;
 
-	/**输出所有log信息*/
+    /**输出所有log信息*/
 
-	public static final int LOG_ALL = 6;
+    public static final int LOG_ALL = 6;
 
-	/** 日志输出时的TAG */
+    /** 日志输出时的TAG */
 
-	private static String mTag = "googleplay";
+    private static String mTag = "MyDemo";
 
-	/** 是否允许输出log */
+    /** 是否允许输出log */
 
-	private static int mDebuggable = LOG_ALL;
+    private static int mDebuggable = LOG_ALL;
 
 
+    /** 用于记时的变量 */
 
-	/** 用于记时的变量 */
+    private static long mTimestamp = 0;
 
-	private static long mTimestamp = 0;
 
+    /** 以级别为 d 的形式输出LOG */
 
+    public static void v(String msg) {
 
+        if (mDebuggable >= LEVEL_VERBOSE) {
 
+            Log.v(mTag, msg);
 
-	/** 以级别为 d 的形式输出LOG */
+        }
 
-	public static void v(String msg) {
+    }
 
-		if (mDebuggable >= LEVEL_VERBOSE) {
 
-			Log.v(mTag, msg);
+    /** 以级别为 d 的形式输出LOG */
 
-		}
+    public static void d(String msg) {
 
-	}
+        if (mDebuggable >= LEVEL_DEBUG) {
 
+            Log.d(mTag, msg);
 
+        }
 
-	/** 以级别为 d 的形式输出LOG */
+    }
 
-	public static void d(String msg) {
 
-		if (mDebuggable >= LEVEL_DEBUG) {
+    /** 以级别为 i 的形式输出LOG */
 
-			Log.d(mTag, msg);
+    public static void i(String msg) {
 
-		}
+        if (mDebuggable >= LEVEL_INFO) {
 
-	}
+            Log.i(mTag, msg);
 
+        }
 
+    }
 
-	/** 以级别为 i 的形式输出LOG */
 
-	public static void i(String msg) {
+    /** 以级别为 w 的形式输出LOG */
 
-		if (mDebuggable >= LEVEL_INFO) {
+    public static void w(String msg) {
 
-			Log.i(mTag, msg);
+        if (mDebuggable >= LEVEL_WARN) {
 
-		}
+            Log.w(mTag, msg);
 
-	}
+        }
 
+    }
 
 
-	/** 以级别为 w 的形式输出LOG */
+    /** 以级别为 w 的形式输出Throwable */
 
-	public static void w(String msg) {
+    public static void w(Throwable tr) {
 
-		if (mDebuggable >= LEVEL_WARN) {
+        if (mDebuggable >= LEVEL_WARN) {
 
-			Log.w(mTag, msg);
+            Log.w(mTag, "", tr);
 
-		}
+        }
 
-	}
+    }
 
 
+    /** 以级别为 w 的形式输出LOG信息和Throwable */
 
-	/** 以级别为 w 的形式输出Throwable */
+    public static void w(String msg, Throwable tr) {
 
-	public static void w(Throwable tr) {
+        if (mDebuggable >= LEVEL_WARN && null != msg) {
 
-		if (mDebuggable >= LEVEL_WARN) {
+            Log.w(mTag, msg, tr);
 
-			Log.w(mTag, "", tr);
+        }
 
-		}
+    }
 
-	}
 
+    /** 以级别为 e 的形式输出LOG */
 
+    public static void e(String msg) {
 
-	/** 以级别为 w 的形式输出LOG信息和Throwable */
+        if (mDebuggable >= LEVEL_ERROR) {
 
-	public static void w(String msg, Throwable tr) {
+            Log.e(mTag, msg);
 
-		if (mDebuggable >= LEVEL_WARN && null != msg) {
+        }
 
-			Log.w(mTag, msg, tr);
+    }
 
-		}
 
-	}
+    /** 以级别为 e 的形式输出Throwable */
 
+    public static void e(Throwable tr) {
 
+        if (mDebuggable >= LEVEL_ERROR) {
 
-	/** 以级别为 e 的形式输出LOG */
+            Log.e(mTag, "", tr);
 
-	public static void e(String msg) {
+        }
 
-		if (mDebuggable >= LEVEL_ERROR) {
+    }
 
-			Log.e(mTag, msg);
 
-		}
+    /** 以级别为 e 的形式输出LOG信息和Throwable */
 
-	}
+    public static void e(String msg, Throwable tr) {
 
+        if (mDebuggable >= LEVEL_ERROR && null != msg) {
 
+            Log.e(mTag, msg, tr);
 
-	/** 以级别为 e 的形式输出Throwable */
+        }
 
-	public static void e(Throwable tr) {
+    }
 
-		if (mDebuggable >= LEVEL_ERROR) {
 
-			Log.e(mTag, "", tr);
+    /** 以级别为 e 的形式输出msg信息,附带时间戳，用于输出一个时间段结束点* @param msg 需要输出的msg */
 
-		}
+    public static void elapsed(String msg) {
 
-	}
+        long currentTime = System.currentTimeMillis();
 
+        long elapsedTime = currentTime - mTimestamp;
 
-	/** 以级别为 e 的形式输出LOG信息和Throwable */
+        mTimestamp = currentTime;
 
-	public static void e(String msg, Throwable tr) {
+        e("[Elapsed：" + elapsedTime + "]" + msg);
 
-		if (mDebuggable >= LEVEL_ERROR && null != msg) {
-
-			Log.e(mTag, msg, tr);
-
-		}
-
-	}
-
-
-	/** 以级别为 e 的形式输出msg信息,附带时间戳，用于输出一个时间段结束点* @param msg 需要输出的msg */
-
-	public static void elapsed(String msg) {
-
-		long currentTime = System.currentTimeMillis();
-
-		long elapsedTime = currentTime - mTimestamp;
-
-		mTimestamp = currentTime;
-
-		e("[Elapsed：" + elapsedTime + "]" + msg);
-
-	}
-
-
+    }
 
 
 }

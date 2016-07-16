@@ -1,12 +1,6 @@
 package com.lle.mydemo.fragment;
 
 import com.lle.mydemo.base.BaseFragment;
-import com.lle.mydemo.fragment.HomeFragment;
-import com.lle.mydemo.fragment.NewFragment;
-import com.lle.mydemo.fragment.ServiceFragment;
-import com.lle.mydemo.fragment.SettingFragment;
-import com.lle.mydemo.fragment.SubjectFragment;
-
 import java.util.HashMap;
 import java.util.Map;
 

@@ -3,7 +3,9 @@ package com.lle.mydemo.utils;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+@SuppressWarnings("unused")
 public class SPUtil {
+    @SuppressWarnings("FieldCanBeLocal")
     private static String SPName = "xxx_cache";
     private static SharedPreferences mSp;
 

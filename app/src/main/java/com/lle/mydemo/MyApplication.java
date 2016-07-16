@@ -3,7 +3,6 @@ package com.lle.mydemo;
 import android.app.Application;
 import android.os.Handler;
 
-
 public class MyApplication extends Application implements Thread.UncaughtExceptionHandler {
 
     private static Application sApplication;
@@ -19,7 +18,6 @@ public class MyApplication extends Application implements Thread.UncaughtExcepti
         sHandler = new Handler();
     }
 
-
     public static Application getApplication() {
         return sApplication;
     }
@@ -34,6 +32,5 @@ public class MyApplication extends Application implements Thread.UncaughtExcepti
 
     @Override
     public void uncaughtException(Thread thread, Throwable ex) {
-
     }
 }

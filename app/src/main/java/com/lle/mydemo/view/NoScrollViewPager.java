@@ -4,9 +4,7 @@ import android.content.Context;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 
-/**
- * Created by mypc on 2015/11/22 0022.
- */
+@SuppressWarnings("unused")
 public class NoScrollViewPager extends LazyViewPager {
     public NoScrollViewPager(Context context) {
         this(context, null);

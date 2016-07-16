@@ -4,7 +4,7 @@
        android:layout_width="match_parent"
        android:layout_height="match_parent">
 
-        <RelativeLayout
+<!--        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="140dp">
 
@@ -34,7 +34,7 @@
                 android:layout_height="20dp"
                 android:orientation="horizontal"/>
 
-<!--            <RelativeLayout
+&lt;!&ndash;            <RelativeLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
@@ -56,14 +56,17 @@
                     android:layout_width="10dp"
                     android:layout_height="10dp"
                     android:background="@drawable/point_pressed_guide" />
-            </RelativeLayout>-->
+            </RelativeLayout>&ndash;&gt;
 
-        </RelativeLayout>
+        </RelativeLayout>-->
 
         <Button
+            android:visibility="gone"
             android:background="#ccc"
             android:layout_gravity="center"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/home_btn"/>
+
+
     </FrameLayout>

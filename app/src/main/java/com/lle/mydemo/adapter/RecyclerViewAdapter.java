@@ -4,25 +4,12 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.lle.mydemo.R;
 import com.lle.mydemo.utils.UiUtils;
 
 import java.util.List;
 
-/**
- * @项目名称: MyDemo
- * @包名: com.lle.mydemo.adapter
- * @作者: 吴永乐
- *
- * @描述: TODO
- *
- * @创建时间: 2016-07-14 17:42 
- * @更新的时间:
- * @更新的描述: TODO
- *
- */
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder> {
 
     private final OnItemClickListener mListener;
@@ -59,7 +46,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        private TextView mTextView;
+//        private TextView mTextView;
         private ImageView mImageView;
 
         public ViewHolder(View itemView) {

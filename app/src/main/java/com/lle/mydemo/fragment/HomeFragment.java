@@ -1,51 +1,23 @@
 package com.lle.mydemo.fragment;
 
-import android.app.AlertDialog;
-import android.content.DialogInterface;
-import android.graphics.Color;
-import android.support.v4.view.PagerAdapter;
-import android.support.v4.view.ViewPager;
-import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.FrameLayout;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import com.lle.mydemo.R;
-import com.lle.mydemo.activity.MainActivity;
 import com.lle.mydemo.base.BaseFragment;
 import com.lle.mydemo.utils.UiUtils;
 
-import java.util.ArrayList;
-import java.util.List;
-
-/**
- * @项目名称: MyDemo
- * @包名: com.lle.mydemo.fragment
- * @作者: 吴永乐
- *
- * @描述: TODO
- *
- * @创建时间: 2016-04-03 15:37 
- * @更新的时间:
- * @更新的描述: TODO
- *
- */
 public class HomeFragment extends BaseFragment {
-    private static final String TAG = "HomeFragment";
-    int[] imgs = {R.drawable.twitter_icon_1, R.drawable.twitter_icon_2, R.drawable.twitter_icon_3, R.drawable.twitter_icon_4};
-    private ArrayList<View> mList;
+/*    int[] imgs = {R.drawable.twitter_icon_1, R.drawable.twitter_icon_2, R.drawable.twitter_icon_3, R.drawable.twitter_icon_4};
     private ViewPager mViewPager;
+    private ArrayList<View> mList;
     private LinearLayout ll_container;
     private List<ImageView> mPoints;
     private TextView mTv_title;
     private int	mSpace;				// 两个点之间的间距
     private ImageView mSelectedpoint;
     private AutoScrollTask mTask;
-    private int mLeftMargin;
+    private int mLeftMargin;*/
 
     @Override
     protected View initView() {
@@ -56,16 +28,17 @@ public class HomeFragment extends BaseFragment {
         textView.setTextColor(Color.BLUE);*/
 
         FrameLayout frameLayout = (FrameLayout) UiUtils.inflate(R.layout.fragment_home);
-        final Button button = (Button) frameLayout.findViewById(R.id.home_btn);
-        mViewPager = (ViewPager) frameLayout.findViewById(R.id.home_vp);
-        ll_container = (LinearLayout) frameLayout.findViewById(R.id.home_ll_pointcontainer);
-        mTv_title = (TextView) frameLayout.findViewById(R.id.home_tv_title);
+//        final Button button = (Button) frameLayout.findViewById(R.id.home_btn);
+//        mViewPager = (ViewPager) frameLayout.findViewById(R.id.home_vp);
+//        ll_container = (LinearLayout) frameLayout.findViewById(R.id.home_ll_pointcontainer);
+//        mTv_title = (TextView) frameLayout.findViewById(R.id.home_tv_title);
 //        mSelectedpoint = (ImageView) frameLayout.findViewById(R.id.home_iv_selected_point);
-        mTv_title.setText("图片1");
+//        mTv_title.setText("图片1");
 
         //初始化btn
-        button.setText(((MainActivity) getActivity()).isHasAnim() ? "动画效果开关(ON)" : "动画效果开关(OFF)");
-        button.setTextSize(20);
+/*        button.setVisibility(View.VISIBLE);
+        button.setText(((MainActivity) getActivity()).isHasAnim() ? "anim(ON)" : "anim开关(OFF)");
+        button.setTextSize(12);
         button.setTextColor(Color.BLUE);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -89,9 +62,9 @@ public class HomeFragment extends BaseFragment {
                 });
                 builder.create().show();
             }
-        });
+        });*/
 
-        //初始化viewpager中的图片和点
+        /*//初始化viewpager中的图片和点
         mList = new ArrayList<>();
         mPoints = new ArrayList();
         for (int i = 0; i < imgs.length; i++) {
@@ -102,7 +75,7 @@ public class HomeFragment extends BaseFragment {
             mList.add(imageView);
 
             //初始化图片对应的点
-/*            ImageView indicator = new ImageView(mContext);
+*//*            ImageView indicator = new ImageView(mContext);
             indicator.setImageResource(R.drawable.point_normal_guide);
             int width = (int) (TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 10, getResources()
                             .getDisplayMetrics()) + .5f);
@@ -114,7 +87,7 @@ public class HomeFragment extends BaseFragment {
                         (int) (TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 10, getResources()
                                 .getDisplayMetrics()) + .5f);
             }
-            ll_container.addView(indicator, parmas);*/
+            ll_container.addView(indicator, parmas);*//*
 
             ImageView iv = new ImageView(mContext);
             iv.setImageResource(i == 0 ? R.drawable.point_pressed_guide : R.drawable.point_normal_guide);
@@ -150,31 +123,16 @@ public class HomeFragment extends BaseFragment {
 
         //自动轮播
         if(mTask == null) {
-            mTask = new AutoScrollTask();
+            mTask = new AutoScrollTask(mViewPager);
         }
-        mViewPager.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                switch (event.getAction()){
-                    case MotionEvent.ACTION_DOWN:
-                        mTask.stop();
-                        break;
-                    case MotionEvent.ACTION_UP:
-                    case MotionEvent.ACTION_CANCEL:
-                        mTask.start();
-                        break;
-                }
-                return false;
-            }
-        });
-        mTask.start();
+        mTask.start();*/
 
         return frameLayout;
     }
 
-    @Override
+   /* @Override
     protected void initListener() {
-/*        ll_container.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+*//*        ll_container.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
             @Override
             public void onGlobalLayout() {
                 // ll_container布局完成的时候
@@ -185,7 +143,7 @@ public class HomeFragment extends BaseFragment {
                 // 移除监听
                 ll_container.getViewTreeObserver().removeOnGlobalLayoutListener(this);
             }
-        });*/
+        });*//*
 
         //viewpager的滑动监听事件
         mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
@@ -196,13 +154,13 @@ public class HomeFragment extends BaseFragment {
                 // positionOffsetPixels:移动的具体的像素值
                 //                Log.i(TAG, "positionOffset:" + positionOffset + " positionOffsetPixels:" + positionOffsetPixels);
 
-                /*                if (position % mList.size() == mList.size() - 1) {
+                                if (position % mList.size() == mList.size() - 1) {
                     return;
                 }
                 int leftMargin = (int) (mSpace * (position % mList.size()) + mSpace * positionOffset + .5f);
                 RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) mSelectedpoint.getLayoutParams();
                 layoutParams.leftMargin = leftMargin;
-                mSelectedpoint.setLayoutParams(layoutParams);*/
+                mSelectedpoint.setLayoutParams(layoutParams);
 
 //                Log.i(TAG, "position:" + position % mList.size() + "--------------" + leftMargin);
             }
@@ -215,55 +173,25 @@ public class HomeFragment extends BaseFragment {
                     ll_container.addView(mPoints.get(i));
                 }
 
-                /*if (position % mList.size() == mList.size() - 1 || position % mList.size() == 0) {
+                if (position % mList.size() == mList.size() - 1 || position % mList.size() == 0) {
                     RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) mSelectedpoint.getLayoutParams();
                     layoutParams.leftMargin = mSpace * (position % mList.size());
                     mSelectedpoint.setLayoutParams(layoutParams);
-                }*/
+                }
                 mTv_title.setText("图片" + (position % mList.size() + 1));
             }
             @Override
             public void onPageScrollStateChanged(int state) {}
         });
-    }
+    }*/
 
-    //自动轮播任务
-    class AutoScrollTask implements Runnable{
-        private boolean flag;
-
-        public void start(){
-            if (!flag) {
-                UiUtils.removeCallbacks(this);
-                flag = true;
-                UiUtils.postDelayed(this, 3000);
-            }
-        }
-
-        public void stop(){
-            if(flag) {
-                flag = false;
-                UiUtils.removeCallbacks(this);
-            }
-        }
-
-        @Override
-        public void run() {
-            if (flag) {
-                UiUtils.removeCallbacks(this);
-                int currentItem = mViewPager.getCurrentItem();
-                mViewPager.setCurrentItem(++currentItem);
-                UiUtils.postDelayed(this, 3000);
-            }
-        }
-    }
-
-    @Override
+/*    @Override
     public void onStart() {
         super.onStart();
         if(mTask != null)
             mTask.start();
-/*        if(mLeftMargin != 0)
-            ((RelativeLayout.LayoutParams) mSelectedpoint.getLayoutParams()).leftMargin = mLeftMargin;*/
+*//*        if(mLeftMargin != 0)
+            ((RelativeLayout.LayoutParams) mSelectedpoint.getLayoutParams()).leftMargin = mLeftMargin;*//*
     }
 
     @Override
@@ -278,5 +206,5 @@ public class HomeFragment extends BaseFragment {
     public void onDestroy() {
         super.onDestroy();
         mTask = null;
-    }
+    }*/
 }

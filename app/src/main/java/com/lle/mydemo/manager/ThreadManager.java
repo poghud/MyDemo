@@ -4,7 +4,6 @@ import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
-
 public class ThreadManager {
 
     private ThreadPoolProxy mShortPool;
@@ -19,20 +18,22 @@ public class ThreadManager {
     //创建耗时长的线程池
     public ThreadPoolProxy createLongTimePool(){
         if(mLongPool == null) {
-            mLongPool = new ThreadPoolProxy(5, 5, 5000l);
+            mLongPool = new ThreadPoolProxy(5, 5, 5000L);
         }
         return mLongPool;
     }
 
     //创建耗时短的线程池
+    @SuppressWarnings("unused")
     public ThreadPoolProxy createShortTimePool(){
         if(mShortPool == null) {
-            mShortPool = new ThreadPoolProxy(3, 3, 5000l);
+            mShortPool = new ThreadPoolProxy(3, 3, 5000L);
         }
         return mShortPool;
     }
 
     public class ThreadPoolProxy {
+
         private ThreadPoolExecutor sThreadPool;
         private int corePoolSize;
         private int maximumPoolSize;
@@ -62,6 +63,7 @@ public class ThreadManager {
         }
 
         //取消任务
+        @SuppressWarnings("unused")
         public void cancel(Runnable runnable) {
             if (sThreadPool != null && !sThreadPool.isShutdown() && !sThreadPool.isTerminated()) {
                 sThreadPool.remove(runnable);

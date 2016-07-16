@@ -16,20 +16,8 @@ import com.lle.mydemo.utils.UiUtils;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * @项目名称: MyDemo
- * @包名: com.lle.mydemo.fragment
- * @作者: 吴永乐
- *
- * @描述: TODO
- *
- * @创建时间: 2016-04-03 15:40 
- * @更新的时间:
- * @更新的描述: TODO
- *
- */
 public class ServiceFragment extends BaseFragment {
-    private List<Integer> mList;
+
     private MainActivity mMainActivity;
 
     @Override
@@ -38,11 +26,11 @@ public class ServiceFragment extends BaseFragment {
 
         RecyclerView recyclerView = (RecyclerView) rootView.findViewById(R.id.rv_service);
         recyclerView.setLayoutManager(new StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL));
-        mList = new ArrayList();
+        List<Integer> list = new ArrayList<>();
         for (int i = 0; i < 40; i++) {
-            mList.add(R.drawable.icon_01 + i);
+            list.add(R.drawable.icon_01 + i);
         }
-        recyclerView.setAdapter(new RecyclerViewAdapter(mList, new RecyclerViewAdapter.OnItemClickListener(){
+        recyclerView.setAdapter(new RecyclerViewAdapter(list, new RecyclerViewAdapter.OnItemClickListener(){
             @Override
             public void onItemClick(View itemView, int position) {
                 Snackbar.make(itemView, "pressed item " + position, Snackbar.LENGTH_SHORT).show();
