@@ -15,6 +15,12 @@ android {
         versionName "1.0"
     }
 
+    dexOptions {
+        incremental = true;
+        preDexLibraries = false
+        javaMaxHeapSize "4g" // 2g should be also OK
+    }
+
     buildTypes {
         debug {
             // debug模式
@@ -29,10 +35,10 @@ android {
         }
     }
 
-        // 移除lint检查的error
-        lintOptions {
-            abortOnError false
-        }
+    // 移除lint检查的error
+    lintOptions {
+        abortOnError false
+    }
 
     //多渠道打包
     productFlavors {

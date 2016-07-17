@@ -98,8 +98,8 @@
             <com.lle.mydemo.view.LazyViewPager
                 android:id="@+id/vp"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                />
+                android:layout_height="match_parent"/>
+
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>
 

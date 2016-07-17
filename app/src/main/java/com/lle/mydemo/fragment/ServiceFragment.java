@@ -26,7 +26,7 @@ public class ServiceFragment extends BaseFragment {
 
         RecyclerView recyclerView = (RecyclerView) rootView.findViewById(R.id.rv_service);
         recyclerView.setLayoutManager(new StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL));
-        List<Integer> list = new ArrayList<>();
+        List<Integer> list =  new ArrayList<>();
         for (int i = 0; i < 40; i++) {
             list.add(R.drawable.icon_01 + i);
         }
@@ -106,4 +106,6 @@ public class ServiceFragment extends BaseFragment {
 
         return rootView;
     }
+
+
 }

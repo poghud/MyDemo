@@ -1,19 +1,5 @@
 package com.lle.mydemo.view;
 
-/**
- * @项目名称: Zhbj59
- * @包名: org.itheima59.zhbj.view
- * @类名: LazyViewPager
- * @作者: 肖琦
- * 
- * @描述: TODO
- * 
- * @当前版本号: $Rev: 21 $
- * @更新人: $Author: xq $
- * @更新的时间: $Date: 2015-06-01 09:52:04 +0800 (Mon, 01 Jun 2015) $
- * @更新的描述: TODO
- *
- */
 /*
  * Copyright (C) 2011 The Android Open Source Project
  *

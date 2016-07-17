@@ -9,7 +9,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
@@ -217,7 +217,6 @@ public class MainActivity extends BaseActivity {
             public boolean onTouch(View v, MotionEvent event) {
                 if (!hasTouchNested)
                     return false;
-
                 switch (event.getAction()) {
                     case MotionEvent.ACTION_DOWN:
                         downY = event.getY();
@@ -235,10 +234,8 @@ public class MainActivity extends BaseActivity {
                             mFab.show();
                         }
 
-                        //                        mRadioGroup.setVisibility(View.GONE);
                         break;
                     default:
-                        //                        mRadioGroup.setVisibility(View.VISIBLE);
                         break;
                 }
                 return false;
@@ -272,7 +269,7 @@ public class MainActivity extends BaseActivity {
 
     private void initViewPager() {
         mViewPager = (LazyViewPager) findViewById(R.id.vp);
-        mViewPager.setAdapter(new FragmentPagerAdapter(getSupportFragmentManager()) {
+        mViewPager.setAdapter(new FragmentStatePagerAdapter(getSupportFragmentManager()) {
             @Override
             public Fragment getItem(int position) {
                 return FragmentFactory.getFragment(position);
@@ -338,7 +335,7 @@ public class MainActivity extends BaseActivity {
                         break;
                 }
                 mViewPager.setCurrentItem(item);
-//                mViewPager.setCurrentItem(item, hasAnim);
+                //                mViewPager.setCurrentItem(item, hasAnim);
                 setHasTouchNested(item != 2);
             }
         });
