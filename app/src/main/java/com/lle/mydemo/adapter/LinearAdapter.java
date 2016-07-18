@@ -1,47 +1,38 @@
 package com.lle.mydemo.adapter;
 
-import android.graphics.Bitmap;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.lle.mydemo.R;
 import com.lle.mydemo.utils.ImageCache;
 import com.lle.mydemo.utils.UiUtils;
 
-import java.lang.ref.SoftReference;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
-public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder> {
-
+public class LinearAdapter extends RecyclerView.Adapter<LinearAdapter.ViewHolder> {
     private final OnItemClickListener mListener;
     private final List mList;
-    private Map<Integer, SoftReference<Bitmap>> mImgCache = new HashMap<>();
 
-    public RecyclerViewAdapter(List dataList, OnItemClickListener listener) {
+    public LinearAdapter(List dataList, OnItemClickListener listener) {
         mList = dataList;
         mListener = listener;
     }
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        //        return new ViewHolder(UiUtils.inflate(R.layout.item_service));
-        return new ViewHolder(UiUtils.inflate(R.layout.item_staggeredgrid));
+        return new ViewHolder(UiUtils.inflate(R.layout.item_recyc_linear));
     }
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-/*        holder.mImageView.setImageResource(R.mipmap.ic_icon);
-        holder.mTextView.setText("position : " + position);
-        holder.mTextView.setTextSize(18);*/
-
-        //        holder.mImageView.setImageResource((Integer) mList.get(position));
 
         int imgID = (Integer) mList.get(position);
         ImageCache.getImageCache().setImage(imgID, holder.mImageView);
+
+        holder.mTextView.setText("text" + position);
 
     }
 
@@ -57,15 +48,14 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        //        private TextView mTextView;
+        private TextView mTextView;
         private ImageView mImageView;
 
         public ViewHolder(View itemView) {
             super(itemView);
 
-/*            mImageView = (ImageView) itemView.findViewById(R.id.iv_service);
-            mTextView = (TextView) itemView.findViewById(R.id.tv_service);*/
-            mImageView = (ImageView) itemView.findViewById(R.id.iv_staggeredgrid);
+            mImageView = (ImageView) itemView.findViewById(R.id.iv_cardview);
+            mTextView = (TextView) itemView.findViewById(R.id.tv_cardview);
 
             if (mListener != null) {
                 itemView.setOnClickListener(this);

@@ -4,6 +4,7 @@ import android.animation.Animator;
 import android.animation.ObjectAnimator;
 import android.content.Intent;
 import android.graphics.Color;
+import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
@@ -20,7 +21,6 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -38,7 +38,7 @@ import com.lle.mydemo.view.LazyViewPager;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends BaseActivity {
+public class MainActivity extends BaseActivity{
 
     private Toolbar mToolbar;
     private LazyViewPager mViewPager;
@@ -49,10 +49,10 @@ public class MainActivity extends BaseActivity {
     private FloatingActionButton mFab2;
     private RadioGroup mRadioGroup;
 
-    //页面切换动画效果
-    private boolean hasAnim;
+    //沉浸式效果
+//    private boolean hasImmersive;
     //NestedScrollView是否需要触摸事件
-    private boolean hasTouchNested = true;
+    //    private boolean hasTouchNested = true;
 
     //topviewpager的图片
     int[] imgs = {R.drawable.twitter_icon_1, R.drawable.twitter_icon_2, R.drawable.twitter_icon_3, R.drawable.twitter_icon_4};
@@ -62,10 +62,9 @@ public class MainActivity extends BaseActivity {
     private List<ImageView> mPoints;
     private TextView mTextView;
     private AutoScrollTask mTask;
-
-    public void setHasTouchNested(boolean hasTouchNested) {
-        this.hasTouchNested = hasTouchNested;
-    }
+    private AppBarLayout mAppBarLayout;
+    private AppBarLayout.OnOffsetChangedListener mOnOffsetChangedListener;
+    private CollapsingToolbarLayout mCollapsingToolbar;
 
     public FloatingActionButton getFab2() {
         return mFab2;
@@ -75,14 +74,17 @@ public class MainActivity extends BaseActivity {
         return mFab;
     }
 
-    public void setHasAnim(boolean hasAnim) {
-        this.hasAnim = hasAnim;
+    public CollapsingToolbarLayout getCollapsingToolbarLayout(){
+        return mCollapsingToolbar;
     }
 
-    public boolean isHasAnim() {
-        return hasAnim;
+    public RadioGroup getRadioGroup(){
+        return mRadioGroup;
     }
 
+    public NavigationView getNavigationView() {
+        return mNavigationView;
+    }
 
     @Override
     protected void initView() {
@@ -97,6 +99,9 @@ public class MainActivity extends BaseActivity {
         if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
+
+        //初始化AppBarLayout
+        initAppBarLayout();
 
         //初始化DrawerLayout
         initDrawerLayout();
@@ -115,16 +120,36 @@ public class MainActivity extends BaseActivity {
 
         //初始化nestedScrollView
         initNestedScrollView();
+
+    }
+
+    private void initAppBarLayout() {
+        mAppBarLayout = (AppBarLayout) findViewById(R.id.abl_main);
+        mOnOffsetChangedListener = new AppBarLayout.OnOffsetChangedListener() {
+            @Override
+            public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
+                if (verticalOffset == 0) {
+                    //            mSwipeRefreshLayout.setEnabled(true);
+                    //完全展开
+                    if (mTask != null)
+                        mTask.start();
+                } else {
+                    //            mSwipeRefreshLayout.setEnabled(false);
+                    if (mTask != null)
+                        mTask.stop();
+                }
+            }
+        };
     }
 
     private void initCollapsingToolbarLayout() {
         //设置工具栏标题
-        CollapsingToolbarLayout collapsingToolbar = (CollapsingToolbarLayout) findViewById(R.id.ctl_main);
-        assert collapsingToolbar != null;
-        collapsingToolbar.setTitle("Demo");
-        collapsingToolbar.setExpandedTitleColor(Color.TRANSPARENT);
+        mCollapsingToolbar = (CollapsingToolbarLayout) findViewById(R.id.ctl_main);
+        assert mCollapsingToolbar != null;
+        mCollapsingToolbar.setTitle("Demo");
+        mCollapsingToolbar.setExpandedTitleColor(Color.TRANSPARENT);
         //折叠时标题颜色
-        collapsingToolbar.setCollapsedTitleTextColor(Color.WHITE);
+        mCollapsingToolbar.setCollapsedTitleTextColor(Color.WHITE);
 
         //viewpager
         final ViewPager topViewPager = (ViewPager) findViewById(R.id.vp_main);
@@ -207,12 +232,12 @@ public class MainActivity extends BaseActivity {
         mTask.start();
     }
 
-    private float downY = 0;
+    //    private float downY = 0;
 
     private void initNestedScrollView() {
         mNestedScrollView = (NestedScrollView) findViewById(R.id.nestedScrollView);
         assert mNestedScrollView != null;
-        mNestedScrollView.setOnTouchListener(new View.OnTouchListener() {
+/*        mNestedScrollView.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 if (!hasTouchNested)
@@ -240,7 +265,7 @@ public class MainActivity extends BaseActivity {
                 }
                 return false;
             }
-        });
+        });*/
     }
 
     private void initNavigationView() {
@@ -262,6 +287,7 @@ public class MainActivity extends BaseActivity {
                 return true;
             }
         });
+
     }
 
     private int[] id_radioButtons = {R.id.rb_home, R.id.rb_news, R.id.rb_service,
@@ -301,6 +327,7 @@ public class MainActivity extends BaseActivity {
             public void onPageScrollStateChanged(int state) {
             }
         });
+        mViewPager.setOffscreenPageLimit(4);
     }
 
     @Override
@@ -336,7 +363,7 @@ public class MainActivity extends BaseActivity {
                 }
                 mViewPager.setCurrentItem(item);
                 //                mViewPager.setCurrentItem(item, hasAnim);
-                setHasTouchNested(item != 2);
+                //                setHasTouchNested(item != 2);
             }
         });
     }
@@ -462,15 +489,17 @@ public class MainActivity extends BaseActivity {
     }
 
     @Override
-    public void onStart() {
-        super.onStart();
+    protected void onResume() {
+        super.onResume();
+        mAppBarLayout.addOnOffsetChangedListener(mOnOffsetChangedListener);
         if (mTask != null)
             mTask.start();
     }
 
     @Override
-    public void onStop() {
-        super.onStop();
+    protected void onPause() {
+        super.onPause();
+        mAppBarLayout.removeOnOffsetChangedListener(mOnOffsetChangedListener);
         if (mTask != null)
             mTask.stop();
     }
@@ -480,4 +509,5 @@ public class MainActivity extends BaseActivity {
         super.onDestroy();
         mTask = null;
     }
+
 }

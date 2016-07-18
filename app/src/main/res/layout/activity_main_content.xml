@@ -9,6 +9,7 @@
     tools:showIn="@layout/activity_main">
 
     <android.support.design.widget.AppBarLayout
+        android:id="@+id/abl_main"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">

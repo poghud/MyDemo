@@ -21,7 +21,7 @@ public class TabFragment extends BaseFragment {
         textView.setText(mText);
         textView.setTextSize(20);
         textView.setGravity(Gravity.CENTER);
-        textView.setTextColor(Color.BLUE);
+        textView.setTextColor(Color.BLACK);
         return textView;
     }
 
