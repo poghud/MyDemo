@@ -1,73 +1,73 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="800dp"
     android:layout_gravity="bottom">
 
-<RadioGroup
-    android:layout_alignParentBottom="true"
-    android:id="@+id/rg"
-    android:layout_width="match_parent"
-    android:layout_height="60dp"
-    android:background="@color/colorPrimary"
-    android:orientation="horizontal"
-    tools:showIn="@layout/activity_main"
-    >
+    <RadioGroup
+        android:id="@+id/rg"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_alignParentBottom="true"
+        android:background="@color/colorPrimary"
+        android:orientation="horizontal"
+        tools:showIn="@layout/activity_main"
+        >
 
-    <RadioButton
-        android:id="@+id/rb_home"
-        style="@style/radioButton"
-        android:checked="true"
+        <RadioButton
+            android:id="@+id/rb_home"
+            style="@style/radioButton"
+            android:checked="true"
 
-        android:text="页面1"/>
+            android:text="页面1"/>
 
-    <RadioButton
-        android:id="@+id/rb_news"
-        style="@style/radioButton"
+        <RadioButton
+            android:id="@+id/rb_news"
+            style="@style/radioButton"
 
-        android:text="页面2"/>
+            android:text="页面2"/>
 
-    <RadioButton
-        android:id="@+id/rb_service"
-        style="@style/radioButton"
+        <RadioButton
+            android:id="@+id/rb_service"
+            style="@style/radioButton"
 
-        android:text="页面3"/>
+            android:text="页面3"/>
 
-    <RadioButton
-        android:id="@+id/rb_subject"
-        style="@style/radioButton"
+        <RadioButton
+            android:id="@+id/rb_subject"
+            style="@style/radioButton"
 
-        android:text="页面4"/>
+            android:text="页面4"/>
 
-    <RadioButton
-        android:id="@+id/rb_setting"
-        style="@style/radioButton"
+        <RadioButton
+            android:id="@+id/rb_setting"
+            style="@style/radioButton"
 
-        android:text="页面5"/>
+            android:text="页面5"/>
 
-</RadioGroup>
+    </RadioGroup>
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab2"
-        android:layout_margin="@dimen/fab_margin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@id/rg"
+        android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
+        android:layout_margin="@dimen/fab_margin"
         android:src="@android:drawable/ic_menu_gallery"
-        app:fabSize="normal"
-        android:visibility="gone"/>
+        android:visibility="gone"
+        app:fabSize="normal"/>
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"
-        android:layout_margin="@dimen/fab_margin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@id/rg"
+        android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
+        android:layout_margin="@dimen/fab_margin"
         android:src="@android:drawable/ic_input_get"
         app:fabSize="normal"
         />

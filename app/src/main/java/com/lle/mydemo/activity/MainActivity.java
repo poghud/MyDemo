@@ -4,6 +4,7 @@ import android.animation.Animator;
 import android.animation.ObjectAnimator;
 import android.content.Intent;
 import android.graphics.Color;
+import android.os.Build;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
@@ -21,11 +22,13 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioGroup;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -33,6 +36,7 @@ import com.lle.mydemo.R;
 import com.lle.mydemo.base.BaseActivity;
 import com.lle.mydemo.fragment.FragmentFactory;
 import com.lle.mydemo.utils.AutoScrollTask;
+import com.lle.mydemo.utils.UiUtils;
 import com.lle.mydemo.view.LazyViewPager;
 
 import java.util.ArrayList;
@@ -128,18 +132,29 @@ public class MainActivity extends BaseActivity{
         mOnOffsetChangedListener = new AppBarLayout.OnOffsetChangedListener() {
             @Override
             public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
+//                int totalHeight = 0;
                 if (verticalOffset == 0) {
-                    //            mSwipeRefreshLayout.setEnabled(true);
                     //完全展开
                     if (mTask != null)
                         mTask.start();
+/*                    if(totalHeight == 0)
+                        totalHeight = mNestedScrollView.getTop();*/
+//                    LogUtils.i("verticalOffset ------------" + verticalOffset);//210 126
+//                    LogUtils.i("toolbar ------------" + mToolbar.getMeasuredHeight());//84
                 } else {
-                    //            mSwipeRefreshLayout.setEnabled(false);
+//                    LogUtils.i("verticalOffset ------------" + verticalOffset);
+//                    LogUtils.i("mNestedScrollView ------------" + mNestedScrollView.getTop());//210 74
+                    //广告图:126 toolbar:84
+/*                    if(verticalOffset > totalHeight - mToolbar.getMeasuredHeight()){
+                        //广告图完全折叠时
+
+                    }*/
                     if (mTask != null)
                         mTask.stop();
                 }
             }
         };
+
     }
 
     private void initCollapsingToolbarLayout() {
@@ -232,21 +247,23 @@ public class MainActivity extends BaseActivity{
         mTask.start();
     }
 
-    //    private float downY = 0;
+    private float downY = 0;
 
     private void initNestedScrollView() {
         mNestedScrollView = (NestedScrollView) findViewById(R.id.nestedScrollView);
         assert mNestedScrollView != null;
-/*        mNestedScrollView.setOnTouchListener(new View.OnTouchListener() {
+        mNestedScrollView.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-                if (!hasTouchNested)
-                    return false;
                 switch (event.getAction()) {
                     case MotionEvent.ACTION_DOWN:
                         downY = event.getY();
                         break;
                     case MotionEvent.ACTION_MOVE:
+                        if(downY == 0){
+                            downY = event.getY();
+                            return false;
+                        }
                         float moveY = event.getY();
                         float y = moveY - downY;
                         if (y < -10) {
@@ -260,12 +277,16 @@ public class MainActivity extends BaseActivity{
                         }
 
                         break;
+                    case MotionEvent.ACTION_UP:
+                        downY = 0;
+                        break;
                     default:
                         break;
                 }
                 return false;
             }
-        });*/
+        });
+
     }
 
     private void initNavigationView() {
@@ -328,6 +349,7 @@ public class MainActivity extends BaseActivity{
             }
         });
         mViewPager.setOffscreenPageLimit(4);
+
     }
 
     @Override
@@ -394,6 +416,21 @@ public class MainActivity extends BaseActivity{
                 fabOutsideAnimator(mFab2);
             }
         });
+        if(Build.VERSION.SDK_INT <= Build.VERSION_CODES.KITKAT_WATCH) {
+            RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) mFab.getLayoutParams();
+            layoutParams.bottomMargin = UiUtils.dip2px(60);
+            mFab.setLayoutParams(layoutParams);
+            RelativeLayout.LayoutParams layoutParams2 = (RelativeLayout.LayoutParams) mFab2.getLayoutParams();
+            layoutParams2.bottomMargin = UiUtils.dip2px(60);
+            mFab2.setLayoutParams(layoutParams2);
+        }else{
+            RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) mFab.getLayoutParams();
+            layoutParams.bottomMargin = UiUtils.dip2px(76);
+            mFab.setLayoutParams(layoutParams);
+            RelativeLayout.LayoutParams layoutParams2 = (RelativeLayout.LayoutParams) mFab2.getLayoutParams();
+            layoutParams2.bottomMargin = UiUtils.dip2px(76);
+            mFab2.setLayoutParams(layoutParams2);
+        }
     }
 
     /**

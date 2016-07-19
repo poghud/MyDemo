@@ -12,7 +12,8 @@
         android:id="@+id/abl_main"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        >
 
         <!--        <android.support.v7.widget.Toolbar
                     android:id="@+id/toolbar"
@@ -28,7 +29,8 @@
             app:contentScrim="?attr/colorPrimary"
             app:expandedTitleMarginEnd="64dp"
             app:expandedTitleMarginStart="48dp"
-            app:layout_scrollFlags="scroll|exitUntilCollapsed">
+            app:layout_scrollFlags="scroll|enterAlways">
+            <!--app:layout_scrollFlags="scroll|exitUntilCollapsed"-->
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -91,17 +93,17 @@
         android:fillViewport="true"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-        <LinearLayout
+        <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            >
 
             <com.lle.mydemo.view.LazyViewPager
                 android:id="@+id/vp"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"/>
 
-        </LinearLayout>
+        </FrameLayout>
     </android.support.v4.widget.NestedScrollView>
 
     <include layout="@layout/radiogroup"/>

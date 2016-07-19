@@ -199,6 +199,7 @@ public class HomeFragment extends BaseFragment {
      * @param context 上下文
      * @return 通知栏高度
      */
+    @SuppressWarnings("unused")
     public int getStatusBarHeight(Context context) {
         int statusBarHeight = 0;
         try {
