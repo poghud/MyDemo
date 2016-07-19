@@ -14,21 +14,22 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="16dp"
-        android:text="http://www.xxx.com"/>
+        android:text="@string/link_header_menu"/>
 
     <TextView
         android:id="@+id/id_username"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_above="@id/id_link"
-        android:text="Wu YongLe"/>
+        android:text="@string/author"/>
 
     <ImageView
         android:layout_width="72dp"
         android:layout_height="72dp"
         android:layout_above="@id/id_username"
         android:layout_marginBottom="16dp"
-        android:src="@mipmap/ic_icon"/>
+        android:src="@mipmap/ic_icon"
+        android:contentDescription="@string/icon"/>
 
 
 </RelativeLayout>

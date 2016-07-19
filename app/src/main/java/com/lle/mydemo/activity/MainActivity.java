@@ -4,6 +4,7 @@ import android.animation.Animator;
 import android.animation.ObjectAnimator;
 import android.content.Intent;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Build;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
@@ -309,6 +310,19 @@ public class MainActivity extends BaseActivity{
             }
         });
 
+        //menu headerView
+        View headerView = mNavigationView.getHeaderView(0);
+        final TextView textView = (TextView) headerView.findViewById(R.id.id_link);
+        textView.setClickable(true);
+        textView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //跳转默认浏览器
+                Intent intent = new Intent(Intent.ACTION_VIEW);    //为Intent设置Action属性
+                intent.setData(Uri.parse(textView.getText().toString())); //为Intent设置DATA属性
+                startActivity(intent);
+            }
+        });
     }
 
     private int[] id_radioButtons = {R.id.rb_home, R.id.rb_news, R.id.rb_service,

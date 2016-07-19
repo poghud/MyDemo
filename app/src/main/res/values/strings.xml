@@ -9,4 +9,7 @@
         理论和技术知识来理清头绪，从而指引你穿越陌生的领域。
     </string>
     <string name="tv_service">随便写点东西</string>
+    <string name="link_header_menu">https://github.com/poghud/MyDemo</string>
+    <string name="author">Wu YongLe</string>
+    <string name="icon">头像</string>
 </resources>
