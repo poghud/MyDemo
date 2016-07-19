@@ -8,6 +8,8 @@ public class MyApplication extends Application implements Thread.UncaughtExcepti
     private static Application sApplication;
     private static int sMainTid;
     private static Handler sHandler;
+    //沉浸模式的全局变量
+    private static boolean isImmersive;
 
     @Override
     public void onCreate() {
@@ -16,6 +18,7 @@ public class MyApplication extends Application implements Thread.UncaughtExcepti
         sApplication = this;
         sMainTid = android.os.Process.myTid();
         sHandler = new Handler();
+        isImmersive = false;
     }
 
     public static Application getApplication() {
@@ -28,6 +31,15 @@ public class MyApplication extends Application implements Thread.UncaughtExcepti
 
     public static Handler getHandler() {
         return sHandler;
+    }
+
+
+    public static boolean isImmersive() {
+        return isImmersive;
+    }
+
+    public static void setIsImmersive(boolean isImmersive) {
+        MyApplication.isImmersive = isImmersive;
     }
 
     @Override

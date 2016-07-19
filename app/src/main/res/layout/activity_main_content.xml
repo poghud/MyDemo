@@ -29,8 +29,8 @@
             app:contentScrim="?attr/colorPrimary"
             app:expandedTitleMarginEnd="64dp"
             app:expandedTitleMarginStart="48dp"
-            app:layout_scrollFlags="scroll|enterAlways">
-            <!--app:layout_scrollFlags="scroll|exitUntilCollapsed"-->
+            app:layout_scrollFlags="scroll|exitUntilCollapsed">
+            <!--app:layout_scrollFlags="scroll|enterAlways"-->
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -86,7 +86,7 @@
             app:theme="@style/Base.ThemeOverlay.AppCompat.Dark.ActionBar"/>
     </android.support.design.widget.AppBarLayout>
 
-    <android.support.v4.widget.NestedScrollView
+    <com.lle.mydemo.view.MyScrollView
         android:id="@+id/nestedScrollView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -104,7 +104,7 @@
                 android:layout_height="match_parent"/>
 
         </FrameLayout>
-    </android.support.v4.widget.NestedScrollView>
+    </com.lle.mydemo.view.MyScrollView>
 
     <include layout="@layout/radiogroup"/>
 

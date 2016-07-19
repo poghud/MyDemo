@@ -33,12 +33,14 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.lle.mydemo.MyApplication;
 import com.lle.mydemo.R;
 import com.lle.mydemo.base.BaseActivity;
 import com.lle.mydemo.fragment.FragmentFactory;
 import com.lle.mydemo.utils.AutoScrollTask;
 import com.lle.mydemo.utils.UiUtils;
 import com.lle.mydemo.view.LazyViewPager;
+import com.lle.mydemo.view.MyScrollView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -48,7 +50,7 @@ public class MainActivity extends BaseActivity{
     private Toolbar mToolbar;
     private LazyViewPager mViewPager;
     private DrawerLayout mDrawerLayout;
-    private NestedScrollView mNestedScrollView;
+    private MyScrollView mNestedScrollView;
     private NavigationView mNavigationView;
     private FloatingActionButton mFab;
     private FloatingActionButton mFab2;
@@ -251,9 +253,9 @@ public class MainActivity extends BaseActivity{
     private float downY = 0;
 
     private void initNestedScrollView() {
-        mNestedScrollView = (NestedScrollView) findViewById(R.id.nestedScrollView);
+        mNestedScrollView = (MyScrollView) findViewById(R.id.nestedScrollView);
         assert mNestedScrollView != null;
-        mNestedScrollView.setOnTouchListener(new View.OnTouchListener() {
+        mNestedScrollView.setOnTouchListener(new MyScrollView.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 switch (event.getAction()) {
@@ -559,6 +561,7 @@ public class MainActivity extends BaseActivity{
     public void onDestroy() {
         super.onDestroy();
         mTask = null;
+        MyApplication.setIsImmersive(false);
     }
 
 }
