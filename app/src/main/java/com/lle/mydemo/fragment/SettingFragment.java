@@ -26,7 +26,7 @@ public class SettingFragment extends BaseFragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(mContext));
         List<Integer> list = new ArrayList<>();
         for (int i = 0; i < 16; i++) {
-            list.add(R.mipmap.ic_icon);
+            list.add(R.mipmap.icon_item);
         }
         recyclerView.setAdapter(new LinearAdapter(list, new LinearAdapter.OnItemClickListener() {
             @Override

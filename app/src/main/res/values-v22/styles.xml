@@ -1,7 +1,8 @@
 <resources>>
-    <style name="AppTheme.NoActionBar">
+    <style name="AppTheme.NoActionBar" parent="AppTheme">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
+        <!--对应底部状态栏的颜色-->
         <item name="android:navigationBarColor">@color/colorPrimaryDark</item>
     </style>
 </resources>

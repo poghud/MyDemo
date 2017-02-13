@@ -2,10 +2,12 @@ package com.lle.mydemo.activity;
 
 import android.animation.Animator;
 import android.animation.ObjectAnimator;
+import android.annotation.TargetApi;
 import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
+import android.support.annotation.NonNull;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
@@ -26,6 +28,8 @@ import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioGroup;
@@ -38,6 +42,7 @@ import com.lle.mydemo.R;
 import com.lle.mydemo.base.BaseActivity;
 import com.lle.mydemo.fragment.FragmentFactory;
 import com.lle.mydemo.utils.AutoScrollTask;
+import com.lle.mydemo.utils.ImageCache;
 import com.lle.mydemo.utils.UiUtils;
 import com.lle.mydemo.view.LazyViewPager;
 import com.lle.mydemo.view.MyScrollView;
@@ -45,7 +50,7 @@ import com.lle.mydemo.view.MyScrollView;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends BaseActivity{
+public class MainActivity extends BaseActivity {
 
     private Toolbar mToolbar;
     private LazyViewPager mViewPager;
@@ -57,7 +62,7 @@ public class MainActivity extends BaseActivity{
     private RadioGroup mRadioGroup;
 
     //沉浸式效果
-//    private boolean hasImmersive;
+    //    private boolean hasImmersive;
     //NestedScrollView是否需要触摸事件
     //    private boolean hasTouchNested = true;
 
@@ -73,6 +78,17 @@ public class MainActivity extends BaseActivity{
     private AppBarLayout.OnOffsetChangedListener mOnOffsetChangedListener;
     private CollapsingToolbarLayout mCollapsingToolbar;
 
+    private int mColor = Color.TRANSPARENT;
+    private boolean mIsBarExpanded = true;
+
+    public boolean isBarExpanded() {
+        return mIsBarExpanded;
+    }
+
+    public void setColor(int color) {
+        mColor = color;
+    }
+
     public FloatingActionButton getFab2() {
         return mFab2;
     }
@@ -81,11 +97,11 @@ public class MainActivity extends BaseActivity{
         return mFab;
     }
 
-    public CollapsingToolbarLayout getCollapsingToolbarLayout(){
+    public CollapsingToolbarLayout getCollapsingToolbarLayout() {
         return mCollapsingToolbar;
     }
 
-    public RadioGroup getRadioGroup(){
+    public RadioGroup getRadioGroup() {
         return mRadioGroup;
     }
 
@@ -96,6 +112,9 @@ public class MainActivity extends BaseActivity{
     @Override
     protected void initView() {
         setContentView(R.layout.activity_main);
+
+        //透明状态栏
+        setStatusBarTransparent();
 
         //设置Toolbar
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -130,34 +149,53 @@ public class MainActivity extends BaseActivity{
 
     }
 
+    private void setStatusBarTransparent() {
+    /*        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
+                getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+            }*/
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            Window window = getWindow();
+            //清除系统提供的默认保护色
+            window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS
+                    | WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
+            //设置系统UI的显示方式
+            window.getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                    | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                    | View.SYSTEM_UI_FLAG_LAYOUT_STABLE);
+            //添加属性可以自定义设置系统工具栏颜色
+            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+            window.setStatusBarColor(Color.TRANSPARENT);
+        }
+    }
+
     private void initAppBarLayout() {
         mAppBarLayout = (AppBarLayout) findViewById(R.id.abl_main);
         mOnOffsetChangedListener = new AppBarLayout.OnOffsetChangedListener() {
             @Override
             public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
-//                int totalHeight = 0;
                 if (verticalOffset == 0) {
                     //完全展开
+                    mIsBarExpanded = true;
                     if (mTask != null)
                         mTask.start();
-/*                    if(totalHeight == 0)
-                        totalHeight = mNestedScrollView.getTop();*/
-//                    LogUtils.i("verticalOffset ------------" + verticalOffset);//210 126
-//                    LogUtils.i("toolbar ------------" + mToolbar.getMeasuredHeight());//84
-                } else {
-//                    LogUtils.i("verticalOffset ------------" + verticalOffset);
-//                    LogUtils.i("mNestedScrollView ------------" + mNestedScrollView.getTop());//210 74
-                    //广告图:126 toolbar:84
-/*                    if(verticalOffset > totalHeight - mToolbar.getMeasuredHeight()){
-                        //广告图完全折叠时
-
-                    }*/
+                    setAppBarColor(Color.TRANSPARENT);
+                } else if (Math.abs(verticalOffset) == appBarLayout.getTotalScrollRange()) {
+                    //完全收缩
+                    mIsBarExpanded = false;
                     if (mTask != null)
                         mTask.stop();
+                    setAppBarColor(mColor);
                 }
             }
         };
 
+    }
+
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+    private void setAppBarColor(int color) {
+        if (getWindow().getStatusBarColor() != color)
+            getWindow().setStatusBarColor(color);
     }
 
     private void initCollapsingToolbarLayout() {
@@ -179,8 +217,9 @@ public class MainActivity extends BaseActivity{
         for (int i = 0; i < imgs.length; i++) {
             //初始化viewpager中的图片
             ImageView imageView = new ImageView(this);
-            imageView.setImageResource(imgs[i]);
+            //            imageView.setImageResource(imgs[i]);
             imageView.setScaleType(ImageView.ScaleType.FIT_XY);
+            ImageCache.getImageCache().setImage(imgs[i], imageView);
             mList.add(imageView);
             //初始化对应的点
             ImageView iv = new ImageView(this);
@@ -263,7 +302,7 @@ public class MainActivity extends BaseActivity{
                         downY = event.getY();
                         break;
                     case MotionEvent.ACTION_MOVE:
-                        if(downY == 0){
+                        if (downY == 0) {
                             downY = event.getY();
                             return false;
                         }
@@ -297,7 +336,7 @@ public class MainActivity extends BaseActivity{
         assert mNavigationView != null;
         mNavigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
-            public boolean onNavigationItemSelected(MenuItem item) {
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 Snackbar.make(mNavigationView, "pressed " + item.getTitle(), Snackbar.LENGTH_SHORT).show();
                 mDrawerLayout.closeDrawers();
                 //详情页面
@@ -365,7 +404,6 @@ public class MainActivity extends BaseActivity{
             }
         });
         mViewPager.setOffscreenPageLimit(4);
-
     }
 
     @Override
@@ -432,14 +470,14 @@ public class MainActivity extends BaseActivity{
                 fabOutsideAnimator(mFab2);
             }
         });
-        if(Build.VERSION.SDK_INT <= Build.VERSION_CODES.KITKAT_WATCH) {
+        if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.KITKAT_WATCH) {
             RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) mFab.getLayoutParams();
             layoutParams.bottomMargin = UiUtils.dip2px(60);
             mFab.setLayoutParams(layoutParams);
             RelativeLayout.LayoutParams layoutParams2 = (RelativeLayout.LayoutParams) mFab2.getLayoutParams();
             layoutParams2.bottomMargin = UiUtils.dip2px(60);
             mFab2.setLayoutParams(layoutParams2);
-        }else{
+        } else {
             RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) mFab.getLayoutParams();
             layoutParams.bottomMargin = UiUtils.dip2px(76);
             mFab.setLayoutParams(layoutParams);
@@ -507,6 +545,7 @@ public class MainActivity extends BaseActivity{
         mDrawerLayout.setDrawerListener(actionBarDrawerToggle);
         //同步状态
         actionBarDrawerToggle.syncState();
+
     }
 
     public void setRadioGroupVisibility(int visibility) {

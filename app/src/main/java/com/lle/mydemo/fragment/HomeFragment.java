@@ -45,8 +45,8 @@ public class HomeFragment extends BaseFragment {
         //        mTv_title.setText("图片1");
 
         //初始化btn
-        button.setVisibility(View.VISIBLE);
-        button.setText(MyApplication.isImmersive() ? "沉浸式(ON)" : "沉浸式(OFF)");
+        button.setVisibility(View.INVISIBLE);
+        button.setText(MyApplication.isImmersive() ? "全屏(ON)" : "全屏(OFF)");
         button.setTextSize(16);
         button.setTextColor(Color.BLUE);
         final MainActivity mainActivity = (MainActivity) getActivity();
@@ -54,12 +54,12 @@ public class HomeFragment extends BaseFragment {
             @Override
             public void onClick(View v) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
-                builder.setTitle("沉浸式效果");
-                builder.setMessage("是否开启沉浸式效果?");
+                builder.setTitle("全屏?");
+                builder.setMessage("是否开启全屏沉浸式效果?");
                 builder.setPositiveButton("是", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        button.setText("沉浸式(ON)");
+                        button.setText("全屏(ON)");
 
                         if(MyApplication.isImmersive())return;
                         MyApplication.setIsImmersive(true);
@@ -68,13 +68,14 @@ public class HomeFragment extends BaseFragment {
                             ImmersiveHelper.controllerStatusbar(true, mainActivity);
                             View view = mainActivity.getWindow().getDecorView();
                             ImmersiveHelper.hideSystemUI(view);
+
                         }else Snackbar.make(button, "亲~您当前的版本不支持沉浸式效果", Snackbar.LENGTH_SHORT).show();
                     }
                 });
                 builder.setNegativeButton("否", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        button.setText("沉浸式(OFF)");
+                        button.setText("全屏(OFF)");
 
                         if(!MyApplication.isImmersive())return;
                         MyApplication.setIsImmersive(false);
@@ -82,6 +83,7 @@ public class HomeFragment extends BaseFragment {
                             ImmersiveHelper.controllerStatusbar(false, mainActivity);
                             View view = mainActivity.getWindow().getDecorView();
                             ImmersiveHelper.showSystemUI(view);
+
                         }else Snackbar.make(button, "亲~您当前的版本不支持沉浸式效果", Snackbar.LENGTH_SHORT).show();
                     }
                 });

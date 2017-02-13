@@ -1,6 +1,7 @@
 package com.lle.mydemo.fragment;
 
 import android.graphics.Color;
+import android.os.Build;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentStatePagerAdapter;
@@ -104,16 +105,19 @@ public class NewFragment extends BaseFragment {
     }
 
     private void setColor(MainActivity mainActivity, int color) {
-//        设置当完全CollapsingToolbarLayout折叠(收缩)后的背景颜色
+        //        设置当完全CollapsingToolbarLayout折叠(收缩)后的背景颜色
         mainActivity.getCollapsingToolbarLayout().setContentScrimColor(color);
         mainActivity.getRadioGroup().setBackgroundColor(color);
         //侧滑菜单头部
         mainActivity.getNavigationView().getHeaderView(0).setBackgroundColor(colorBurn(color));
         mTabLayout.setBackgroundColor(color);
-        if (android.os.Build.VERSION.SDK_INT >= 21) {
+        if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            mainActivity.setColor(colorBurn(color));
             Window window = mainActivity.getWindow();
-            window.setStatusBarColor(colorBurn(color));
+            if(!mainActivity.isBarExpanded())
+                window.setStatusBarColor(colorBurn(color));
             window.setNavigationBarColor(colorBurn(color));
+
         }
     }
 

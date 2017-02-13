@@ -57,6 +57,11 @@ public class MyRecycEvent {
                 }
             }
 
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+            }
+
             public int findMax(int[] arr) {
                 int max = arr[0];
                 for (int i : arr) {

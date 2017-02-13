@@ -2,7 +2,7 @@ apply plugin: 'com.android.application'  // 声明是Android程序
 
 android {
     // 编译SDK的版本
-    compileSdkVersion 23
+    compileSdkVersion 25
     // build tools的版本
     buildToolsVersion '23.0.1'
 
@@ -10,7 +10,7 @@ android {
         // 应用的包名
         applicationId "com.lle.mydemo"
         minSdkVersion 16
-        targetSdkVersion 23
+        targetSdkVersion 25
         versionCode 1
         versionName "1.0"
     }
@@ -41,7 +41,7 @@ android {
     }
 
     //多渠道打包
-    productFlavors {
+/*    productFlavors {
         googleplay {
             manifestPlaceholders = [CHANNEL_VALUE: "google"]
             minSdkVersion 16
@@ -57,14 +57,14 @@ android {
             minSdkVersion 16
             targetSdkVersion 23
         }
-    }
+    }*/
 }
 
 dependencies {
     // 编译libs目录下的所有jar包
     compile fileTree(dir: 'libs', include: ['*.jar'])
     testCompile 'junit:junit:4.12'
-    compile 'com.android.support:appcompat-v7:23.4.0'
-    compile 'com.android.support:design:23.4.0'
-    compile 'com.android.support:cardview-v7:23.4.0'
+    compile 'com.android.support:appcompat-v7:25.1.1'
+    compile 'com.android.support:design:25.1.1'
+    compile 'com.android.support:cardview-v7:25.1.1'
 }

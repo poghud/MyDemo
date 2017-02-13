@@ -4,7 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="800dp"
+    android:layout_height="match_parent"
     android:layout_gravity="bottom">
 
     <RadioGroup
@@ -21,31 +21,31 @@
             android:id="@+id/rb_home"
             style="@style/radioButton"
             android:checked="true"
-
+            android:drawableTop="@drawable/selector_home"
             android:text="页面1"/>
 
         <RadioButton
             android:id="@+id/rb_news"
             style="@style/radioButton"
-
+            android:drawableTop="@drawable/selector_newscenter"
             android:text="页面2"/>
 
         <RadioButton
             android:id="@+id/rb_service"
             style="@style/radioButton"
-
+            android:drawableTop="@drawable/selector_govaffairs"
             android:text="页面3"/>
 
         <RadioButton
             android:id="@+id/rb_subject"
             style="@style/radioButton"
-
+            android:drawableTop="@drawable/selector_smartservice"
             android:text="页面4"/>
 
         <RadioButton
             android:id="@+id/rb_setting"
             style="@style/radioButton"
-
+            android:drawableTop="@drawable/selector_setting"
             android:text="页面5"/>
 
     </RadioGroup>

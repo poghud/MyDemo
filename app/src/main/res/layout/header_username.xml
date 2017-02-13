@@ -28,7 +28,7 @@
         android:layout_height="72dp"
         android:layout_above="@id/id_username"
         android:layout_marginBottom="16dp"
-        android:src="@mipmap/ic_icon"
+        android:src="@mipmap/icon_item"
         android:contentDescription="@string/icon"/>
 
 
