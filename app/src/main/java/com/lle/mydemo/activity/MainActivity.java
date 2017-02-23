@@ -194,8 +194,10 @@ public class MainActivity extends BaseActivity {
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     private void setAppBarColor(int color) {
-        if (getWindow().getStatusBarColor() != color)
-            getWindow().setStatusBarColor(color);
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            if (getWindow().getStatusBarColor() != color)
+                getWindow().setStatusBarColor(color);
+        }
     }
 
     private void initCollapsingToolbarLayout() {
